@@ -1,0 +1,186 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Laravel OpenApi create and read post in blog Documentation",
+        "description": "Blog and post",
+        "contact": {
+            "email": "mlf.481990@gmail.com"
+        },
+        "license": {
+            "name": "Apache 2.0",
+            "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+        },
+        "version": "1.0.0"
+    },
+    "servers": [
+        {
+            "url": "http://my-default-host.com",
+            "description": "Blog API Server"
+        }
+    ],
+    "paths": {
+        "/blog/list": {
+            "get": {
+                "tags": [
+                    "Blog"
+                ],
+                "summary": "Get Post from blog",
+                "description": "Returns  data from post in blog",
+                "operationId": "getBlogListPost",
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/BlogResource"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                }
+            }
+        },
+        "/blog/add": {
+            "post": {
+                "tags": [
+                    "Blog"
+                ],
+                "summary": "Store new Post blog",
+                "description": "Returns Post blog data",
+                "operationId": "storePost",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/StorePostRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Blog"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "Blog": {
+                "title": "Blog post",
+                "description": "Blog post model",
+                "properties": {
+                    "id": {
+                        "title": "ID",
+                        "description": "ID",
+                        "type": "integer",
+                        "format": "int64",
+                        "example": 1
+                    },
+                    "title": {
+                        "title": "title",
+                        "description": "title of the new post Blog",
+                        "type": "string",
+                        "example": "A nice Blog"
+                    },
+                    "body": {
+                        "title": "body",
+                        "description": "body of the new Blog",
+                        "type": "string",
+                        "example": "This is new Blog's body"
+                    },
+                    "userId": {
+                        "title": "userId",
+                        "description": "Blog userId's model",
+                        "type": "integer"
+                    }
+                },
+                "type": "object",
+                "xml": {
+                    "name": "Blog"
+                }
+            },
+            "StorePostRequest": {
+                "title": "Store post request",
+                "description": "Store Post request body data",
+                "required": [
+                    "title",
+                    "body"
+                ],
+                "properties": {
+                    "title": {
+                        "title": "title",
+                        "description": "Name of the new post",
+                        "type": "string",
+                        "example": "A nice post"
+                    },
+                    "body": {
+                        "title": "body",
+                        "description": "Key of the new post",
+                        "type": "string",
+                        "example": "a-nice-post"
+                    },
+                    "userId": {
+                        "title": "userId",
+                        "description": "User ID of create post",
+                        "type": "integer",
+                        "example": "85"
+                    }
+                },
+                "type": "object"
+            },
+            "BlogResource": {
+                "title": "Blog",
+                "description": "Blog resource",
+                "properties": {
+                    "data": {
+                        "title": "Blog Data",
+                        "description": "Data wrapper",
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/Blog"
+                        }
+                    }
+                },
+                "type": "object",
+                "xml": {
+                    "name": "Blog"
+                }
+            }
+        }
+    },
+    "tags": [
+        {
+            "name": "Blog",
+            "description": "API Endpoints of Blog"
+        }
+    ]
+}
